@@ -1,0 +1,9 @@
+<%= form_with model: @task do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+  <%= form.label :details %>
+  <%= form.text_field :details %>
+  <%= form.label :author %>
+  <%= form.text_field :author %>
+  <%= form.submit %>
+<% end %>

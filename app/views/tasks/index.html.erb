@@ -1,2 +1,36 @@
-<h1>Tasks#index</h1>
-<p>Find me in app/views/tasks/index.html.erb</p>
+<h1>Tasks To Do
+  <%= link_to new_task_path do %>
+    <i class="fa fa-plus"></i>
+  <% end %>
+</h1>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li class='task'>
+      <div class="task__content">
+        <% if task.completed %>
+          <h3 style='text-decoration: line-through;'>
+            <% if task.completed %>
+              <i class="fa fa-check-square"></i>
+            <% else %>
+              <i class="fa fa-square"></i>
+            <% end %>
+            <%= task.title %>
+          </h3>
+        <% else %>
+          <h3><%= task.title %></h3>
+        <% end %>
+        <p><%= task.details %></p>
+        <span><%= task.author %></span>
+      </div>
+      <div class="task__links">
+        <%= link_to edit_task_path(task) do %>
+          <i class="fa fa-edit"></i>
+        <% end %>
+        <%= link_to task_path(task), method: :delete do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
+</ul>

@@ -1,3 +1,4 @@
+require 'pry'
 class TasksController < ApplicationController
   before_action :assign_task, only: %i[edit update show destroy]
 
@@ -14,15 +15,18 @@ class TasksController < ApplicationController
   end
 
   def create
-    Task.create!(permitted_params)
+    Task.create!(task_params)
+    redirect_to tasks_path
   end
 
   def update
-    @task.update_attributes!(permitted_params)
+    @task.update_attributes!(task_params)
+    redirect_to tasks_path
   end
 
   def destroy
     @task.destroy
+    redirect_to tasks_path
   end
 
   private
@@ -31,7 +35,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  def permitted_params
-    params.permit(:title, :author, :details)
+  def task_params
+    params.require(:task).permit(:title, :author, :details)
   end
 end

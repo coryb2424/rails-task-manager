@@ -22,12 +22,12 @@ RSpec.describe TasksController, type: :controller do
 
   describe "POST #create" do
     it "creates a new task" do
-      params = { title: 'Test title', details: 'text', author: 'Cory' }
+      params = {task: { title: 'Test title', details: 'text', author: 'Cory' }}
       expect { post :create, params: params }.to change(Task, :count).by(1)
     end
 
     it "raises an error if invalid" do
-      params = { title: 'Test title', details: nil, author: 'Cory' }
+      params = {task: { title: 'Test title', details: nil, author: 'Cory' }}
       expect { post :create, params: params }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
@@ -49,7 +49,7 @@ RSpec.describe TasksController, type: :controller do
   describe "PATCH #update" do
     it "updates a value" do
       task = FactoryBot.create(:task)
-      params = {id: task.id, title: 'new title'}
+      params = { task: { title: 'new title' }, id: task.id }
       patch :update, params: params
       updated_task = Task.find(task.id)
       expect(updated_task).to have_attributes(title: "new title")
